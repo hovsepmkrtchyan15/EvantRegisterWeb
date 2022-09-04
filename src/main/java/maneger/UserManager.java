@@ -12,6 +12,7 @@ public class UserManager {
     private Connection connection = DBConnectionProvider.getInstance().getConnection();
     private EventManager eventManager = new EventManager();
 
+
     public void add(User user) {
         String sql = "Insert into user(name, surname, email, event_id) VALUES(?,?,?,?)";
         try {
@@ -49,7 +50,7 @@ public class UserManager {
     }
 
     public User getById(int id) {
-        String sql = "Select * from user when id = " + id;
+        String sql = "Select * from user where id = " + id;
 
         try {
             Statement statement = connection.createStatement();
@@ -78,5 +79,32 @@ public class UserManager {
         return user;
     }
 
+    public void removeUserById(int userid) {
+        String sql = "delete from user where id = " + userid;
 
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void edit(User user) {
+        String sql = "update user set name=?, surname=?, email=?, event_id=? WHERE id=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getSurname());
+            ps.setString(3, user.getEmail());
+            ps.setInt(4, user.getEvent().getId());
+            ps.setInt(5, user.getId());
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
+

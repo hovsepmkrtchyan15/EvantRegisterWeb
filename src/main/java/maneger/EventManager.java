@@ -76,10 +76,20 @@ public class EventManager {
                 .isOnline(resultSet.getBoolean(4))
                 .eventType(EventType.valueOf(resultSet.getString(5)))
                 .price(resultSet.getDouble(6))
-                .eventDate(resultSet.getString(7) == null ? null:sdf.parse(resultSet.getString(7)))
+                .eventDate(resultSet.getString(7) == null ? null : sdf.parse(resultSet.getString(7)))
                 .build();
     }
 
 
+    public void removeEventById(int eventId) {
+        String sql = "delete from event where id = " + eventId;
 
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
+

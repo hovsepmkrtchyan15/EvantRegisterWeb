@@ -24,24 +24,28 @@
         <th>event type</th>
         <th>price</th>
         <th>event date</th>
+        <th>action</th>
     </tr>
     <% for (Event event : events) {
     %>
     <tr>
-        <th><%=event.getId()%>
-        </th>
-        <th><%=event.getName()%>
-        </th>
-        <th><%=event.getPlace()%>
-        </th>
-        <th><%=event.isOnline()%>
-        </th>
-        <th><%=event.getEventType().name()%>
-        </th>
-        <th><%=event.getPrice()%>
-        </th>
-        <th><%=event.getEventDate()%>
-        </th>
+        <td><%=event.getId()%>
+        </td>
+        <td><%=event.getName()%>
+        </td>
+        <td><%=event.getPlace()%>
+        </td>
+        <td><%=event.isOnline()%>
+        </td>
+        <td><%=event.getEventType().name()%>
+        </td>
+        <td><%=event.getPrice()%>
+        </td>
+        <td><%=event.getEventDate()%>
+        </td>
+        <td>
+            <a href="/events/remove?eventId=<%=event.getId()%>">Remove</a>
+        </td>
     </tr>
     <% }
     %>
